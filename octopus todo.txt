@@ -1,0 +1,125 @@
+install realvnc
+openssh
+sudo systemctl enable sshd.service
+(on old and new octopus)
+
+set dhcp reservation on router. ip 192.168.1.8 
+change port forwards from .17 to .8
+set octopus to listen to ssh on port 228
+set old octopus to listen to ssh on a different port 2217
+/etc/ssh/sshd_config
+	Port 228
+	Banner /etc/issue
+	
+after login = /etc/motd
+
+
+	
+	
+
+
+
+
+
+
+
+remove feh. use nitrogen
+
+lxdm-themes (AUR)
+librsvg
+
+/etc/lxdm/lxdm.conf
+
+mkdir -p ~/.config/openbox
+cp /etc/xdg/openbox/* ~/.config/openbox
+sudo pacman -S obconf lxappearance-obconf thunar thunar-volman thunar-archive-plugin gvfs xfce4-panel leafpad file-roller gmrun tumbler gpicview oblogout parcellite python2-xdg/openbox/*
+
+/etc/pacman.conf
+
+	[archlinuxfr]
+	SigLevel = Never
+	Server = http://repo.archlinux.fr/$arch
+	
+sudo pacman -Sy yaourt
+
+yaourt -S localepurge obkey-git gtk-theme-config/openbox
+
+cp /etc/xdg/compton.conf.example ~/.config/compton.conf
+
+nano .config/compton.conf #remove shadow
+nano .config/openbox/autostart # add tint2 & compton &
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
+### nano .xinitrc # exec openbox-session
+	^ should be set as default in /etc/lxdm/lxdm.config/compton
+	
+###hwclock --debug (try to fix the time issue. needs to be UTC-6)
+sudo systemctl enable ntpd
+
+
+conky
+conky-manager
+
+Try xfce4-panel instead of tint2
+
+lxappearance edited at ~/.gtkrc-2.0.mine
+make it an empty file.
+adding to this allows using different themes for things
+
+sudo leafpad /etc/oblogout.conf 
+(this edits which buttons show up and what theme they have when you choose logout from the menu)
+
+###fonts####
+
+yaourt -S ttf-ms-win10
+look at PKGBUILD because it will need a license from win10 machine
+
+---------------------------
+add to pacman.conf:
+
+[infinality-bundle]
+Server = http://bohoomil.com/repo/$arch
+
+[infinality-bundle-multilib]
+Server = http://bohoomil.com/repo/multilib/$arch
+
+su
+ls -la /root/
+**look for .gnupg**
+mkdir /root/.gnupg
+
+sudo pacman-key -r 962DDE58 && pacman-key -f 962DDE58 && pacman-key --lsign 962DDE58
+
+sudo pacman -Syy
+
+pacman -Ss freetype2-infinality-ultimate
+
+Example install:
+sudo pacman -S freetype2-infinality-ultimate lib32-freetype2-infinality-ultimate
+
+reboot
+sudo pacman -S fontconfig-infinality-ultimate
+
+Languages
+
+cd /etc/fonts/conf.d
+sudo ln -s ../conf.avail.infinality/36-repl-missing-glyphs.conf . # Note the dot is included!
+
+sudo pacman -S ttf-liberation
+
+Firefox/Chrome
+
+sudo fc-match "monospace"
+
+General
+
+sudo fc-cache -fr
+
+SOURCE: 
+https://wiki.archlinux.org/index.php/Infinality
+----------------------------
+
+
+
+
+
+
